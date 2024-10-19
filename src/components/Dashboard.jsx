@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 
 const Dashboard = ({ apikey, url }) => {
@@ -7,17 +8,16 @@ const Dashboard = ({ apikey, url }) => {
 
   useEffect(() => {
     const fetch_data = async () => {
-      const  data = await axios.get(`${url}/random`, {
+      const data = await axios.get(`${url}/random`, {
         params: {
           apiKey: apikey,
           number: 10,
         },
       });
-     console.log(data)
       setrecipedata(data.data.recipes);
     };
 
-    fetch_data()
+    fetch_data();
   }, []);
 
   return (
@@ -25,8 +25,9 @@ const Dashboard = ({ apikey, url }) => {
       <div className="text-center font-bold text-5xl mx-6"> Most Searched </div>
       <div className="flex justify-center flex-wrap">
         {recipedata.map((data) => (
-          <div
+          <Link
             key={data.id}
+            to={`/recipe/${data.id}`}
             className="inline-block relative rounded-lg m-5 w-[15%] min-w-44 min-h-52 pb-2 hover:scale-105 transition-all hover:cursor-pointer"
             style={{
               backgroundImage: `url(${data.image})`,
@@ -43,7 +44,7 @@ const Dashboard = ({ apikey, url }) => {
               <div>{data.title}</div>
               <div>Time taken: {`${data.readyInMinutes}min`}</div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

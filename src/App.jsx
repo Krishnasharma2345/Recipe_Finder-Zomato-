@@ -12,7 +12,7 @@ function App() {
     <>
     <div className=''>
      <Navbar/>
-      <Search/>
+      <Search  url={API_URL} apikey={API_KEY}/>
       <Dashboard url={API_URL} apikey={API_KEY}/>
     </div>
     </>
